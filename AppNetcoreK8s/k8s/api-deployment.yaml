@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: apicore-deployment
+  labels:
+    app: apicore
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: apicore
+  template:
+    metadata:
+      labels:
+        app: apicore
+    spec:
+      containers:
+        - name: apicore
+          image: kenriortega/apicore:v0.0.1
+          ports:
+            - containerPort: 15000
+          env:
+            - name: ConnectionStrings__DefaultConnection
+              valueFrom:
+                secretKeyRef:
+                  name: api-connection-secret
+                  key: db-connection-string-secret
+#                configMapKeyRef:
+#                  name: api-connection-uri
+#                  key: db-connection-string 

@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: api-connection-uri
+  labels:
+    app: apicore
+data:
+  db-connection-string: "Host=postgres-svc; Port=5432; Username=postgres; Password=postgres; Database=demo"
