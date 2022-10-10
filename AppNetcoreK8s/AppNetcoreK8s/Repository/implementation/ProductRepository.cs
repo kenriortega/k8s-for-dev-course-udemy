@@ -14,8 +14,8 @@ public class ProductRepository : IProductRepository
     }
 
     public async Task<ServiceResponse<List<Product>>> GetProductsAsync(){
-        var requestedListOfProducts = _dbcontext.Products
-            .ToList();
+        var requestedListOfProducts =await _dbcontext.Products
+            .ToListAsync();
         return new ServiceResponse<List<Product>>() {
             Data = requestedListOfProducts
         };
