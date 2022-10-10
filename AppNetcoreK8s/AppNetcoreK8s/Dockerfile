@@ -3,17 +3,13 @@ WORKDIR /app
 EXPOSE 15000
 
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
-WORKDIR /src
-COPY ["/AppNetcoreK8s.csproj", "AppNetcoreK8s/"]
-RUN dotnet restore "AppNetcoreK8s/AppNetcoreK8s.csproj"
-COPY . .
-WORKDIR "/src"
-RUN dotnet build "AppNetcoreK8s.csproj" -c Release -o /app
-
-FROM build AS publish
-RUN dotnet publish "AppNetcoreK8s.csproj" -c Release -o /app
-
-FROM base AS final
 WORKDIR /app
-COPY --from=publish /app .
-ENTRYPOINT ["dotnet", "AppNetcoreK8s.dll"]
+COPY . .
+RUN dotnet publish AppNetcoreK8s/AppNetcoreK8s -c release -o out
+
+FROM mcr.microsoft.com/dotnet/aspnet:6.0
+WORKDIR /app
+COPY --from=build /app/out .
+ENV ASPNETCORE_URLS http://*:15000
+EXPOSE 15000
+ENTRYPOINT dotnet Backend.dll
