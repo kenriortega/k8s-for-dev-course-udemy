@@ -5,7 +5,7 @@ EXPOSE 15000
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
 WORKDIR /app
 COPY . .
-RUN dotnet publish AppNetcoreK8s/AppNetcoreK8s -c release -o out
+RUN dotnet publish AppNetcoreK8s -c release -o out
 
 FROM mcr.microsoft.com/dotnet/aspnet:6.0
 WORKDIR /app
