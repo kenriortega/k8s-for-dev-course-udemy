@@ -12,4 +12,4 @@ WORKDIR /app
 COPY --from=build /app/out .
 ENV ASPNETCORE_URLS http://*:15000
 EXPOSE 15000
-ENTRYPOINT dotnet Backend.dll
+ENTRYPOINT dotnet AppNetcoreK8s.dll
