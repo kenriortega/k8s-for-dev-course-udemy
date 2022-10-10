@@ -1,0 +1,9 @@
+# curl -X 'POST' 
+#  'http://localhost:15000/products-list' 
+#  -H 'accept: */*' 
+#  -d ''
+POST http://localhost:15000/products-list
+accept: */*
+Content-Type: application/json
+
+###
